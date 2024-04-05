@@ -28,10 +28,10 @@
   <div class="app-content">
 
     <div class="app-input-content">
-      <form>
+      <form id="task-form">
         <input type="text" id="task-input" name="task-input" placeholder="Add new task">
         <input type="date" id="task-input-date" name="task-input-date">
-        <button type="button" id="add-button">Add task</button>
+        <button type="submit" value="submit" id="add-button">Add task</button>
         <button type="button" id="reset-button">Reset</button>
       </form>
     </div>
@@ -39,6 +39,7 @@
       <h1 class="task-label">Current Task:</h1>
     </div>
     <hr />
+    <!-- Container to display tasks -->
     <div id="task-list">
       
     </div>
