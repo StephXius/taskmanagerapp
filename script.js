@@ -7,7 +7,7 @@ function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
 }
 
-// Current Task Section
+// Task Function
 
 document.addEventListener('DOMContentLoaded', function () {
   const taskForm = document.getElementById('task-form');
