@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const taskInput = document.getElementById("task-input");
   const taskInputDate = document.getElementById("task-input-date");
   const taskList = document.getElementById("task-list");
+  const resetButton = document.getElementById("reset-button");
   let tasks = [];
   let completedTasks = [];
 
@@ -58,6 +59,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Function to display completed tasks
+  function displayCompletedTasks() {
+    // Select the completedTaskList element
+    const completedTaskList = document.getElementById("completed-task-list");
+
+    // Clear the existing completed tasks
+    completedTaskList.innerHTML = "";
+
+    // Display the completed tasks
+    completedTasks.forEach(function (task) {
+      const taskElement = createTaskElement(task);
+      taskElement.classList.add("completed");
+      completedTaskList.appendChild(taskElement);
+    });
+  }
   
 
   // Function to create task element
@@ -79,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
     `;
 
-    // Add event listener for checkbox to mark task as completed
+    // Event listener for checkbox to mark task as completed
     taskElement
       .querySelector('input[type="checkbox"]')
       .addEventListener("change", () => {
@@ -94,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
         saveTasks();
       });
 
-    // Add event listener for editing task
+    // Event listener for editing task
     taskElement.querySelector(".edit-btn").addEventListener("click", () => {
       const newName = prompt("Enter new task name:", task.name);
       if (newName !== null) {
@@ -105,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Add event listener for deleting task
+    // Event listener for deleting task
     taskElement.querySelector(".delete-btn").addEventListener("click", () => {
       if (task.completed) {
         completedTasks = completedTasks.filter((t) => t.id !== task.id);
@@ -119,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return taskElement;
   }
 
-  // Add event listener for form submission
+  // Event listener for form submission
   taskForm.addEventListener("submit", function (event) {
     event.preventDefault();
     const taskName = taskInput.value.trim();
@@ -131,7 +147,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Load tasks when the page is loaded
+  // Event listener for reset button
+  resetButton.addEventListener("click", function () {
+    localStorage.clear();
+    location.reload();
+  });
+
+  // Loads tasks when the page is loaded
   loadTasks();
   console.log(displayCompletedTasks)
 });
