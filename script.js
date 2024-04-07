@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
       completedTaskList.appendChild(taskElement);
     });
   }
-  
 
   // Function to create task element
   function createTaskElement(task) {
@@ -99,13 +98,17 @@ document.addEventListener("DOMContentLoaded", function () {
     taskElement
       .querySelector('input[type="checkbox"]')
       .addEventListener("change", () => {
-        if (task.completed) {
-          completedTasks = completedTasks.filter((t) => t.id !== task.id);
-        } else {
-          completedTasks.push(task);
-          tasks = tasks.filter((t) => t.id !== task.id);
-        }
         task.completed = !task.completed;
+        if (task.completed) {
+          // Move the task from tasks to completedTasks
+          tasks = tasks.filter((t) => t.id !== task.id);
+          completedTasks.push(task);
+        } else {
+          // Move the task from completedTasks to tasks
+          completedTasks = completedTasks.filter((t) => t.id !== task.id);
+          tasks.push(task);
+        }
+        displayTasks();
         displayCompletedTasks();
         saveTasks();
       });
@@ -113,12 +116,23 @@ document.addEventListener("DOMContentLoaded", function () {
     // Event listener for editing task
     taskElement.querySelector(".edit-btn").addEventListener("click", () => {
       const newName = prompt("Enter new task name:", task.name);
-      if (newName !== null) {
-        task.name = newName;
-        task.date = new Date().toLocaleString();
-        displayTasks();
-        saveTasks();
+      if (newName === null || newName.trim() === "") {
+        alert("Please enter a task name.");
+        return;
       }
+      task.name = newName;
+      let newDate = prompt("Enter new task date:", task.date);
+      if (newDate !== null) {
+        // Validate the date input using a regular expression
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        while (!dateRegex.test(newDate)) {
+          alert("Invalid date format. Please use YYYY-MM-DD.");
+          newDate = prompt("Enter new task date:", task.date);
+        }
+        task.date = newDate;
+      }
+      displayTasks();
+      saveTasks();
     });
 
     // Event listener for deleting task
@@ -129,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tasks = tasks.filter((t) => t.id !== task.id);
       }
       displayTasks();
+      displayCompletedTasks();
       saveTasks();
     });
 
@@ -144,16 +159,22 @@ document.addEventListener("DOMContentLoaded", function () {
       addTask(taskName, taskDate);
       taskInput.value = "";
       taskInputDate.value = "";
+    } else {
+      alert("Enter a valid task name and date");
     }
   });
 
   // Event listener for reset button
   resetButton.addEventListener("click", function () {
-    localStorage.clear();
-    location.reload();
+    if (localStorage.length === 0) {
+      alert("There are no tasks to delete");
+    } else {
+      localStorage.clear();
+      location.reload();
+      alert("All tasks have been deleted");
+    }
   });
 
   // Loads tasks when the page is loaded
   loadTasks();
-  console.log(displayCompletedTasks)
 });
