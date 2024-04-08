@@ -68,8 +68,17 @@ body {
   font-weight: 100;
   font-size: 20px;
   text-align: center;
+  border-style: solid;
+  border-width: 5px;
+  border-color: black;
   margin-left: 20px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#task-input::placeholder,
+#task-input-date::placeholder {
+  font-style: italic;
+  color: black;
 }
 
 #add-button {
@@ -78,6 +87,9 @@ body {
   background-color: #00CC08;
   font-weight: bold;
   font-size: 20px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: black;
   color: white;
   margin-left: 20px;
   width: 175px;
@@ -97,6 +109,9 @@ body {
   color: white;
   font-weight: bold;
   font-size: 20px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: black;
   margin-left: 20px;
   width: 150px;
   height: 48px;
@@ -200,12 +215,12 @@ body {
   transition: 0.3s;
 }
 
-/* When you mouse over the navigation links, change their color */
+/* Hover mouse over the navigation links, change their color */
 .sidenav a:hover {
   color: #1a3cb6;
 }
 
-/* Position and style the close button (top right corner) */
+/* Position and style of the close button (top right corner) */
 .sidenav .closebtn {
   position: absolute;
   top: 0;
@@ -214,7 +229,7 @@ body {
   margin-left: 50px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+/* On smaller screens, where height is less than 450px, the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {
     padding-top: 15px;
@@ -232,4 +247,88 @@ hr {
   background-color: black;
   margin: 20px;
   position: relative;
+}
+
+.task-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: row;
+  margin: 20px;
+}
+
+.task-actions {
+  margin-bottom: 15px;
+}
+
+.edit-btn {
+  margin: 10px;
+  cursor: pointer;
+  padding: 5px 20px;
+  background-color: #8197E4;
+  color: white;
+  font-weight: bold;
+  font-size: 10px;
+  border-style: solid;
+  border-width: 2.5px;
+  border-color: black;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.delete-btn {
+  margin: 10px;
+  cursor: pointer;
+  padding: 5px 15px;
+  background-color: #FF0000;
+  color: white;
+  font-weight: bold;
+  font-size: 10px;
+  border-style: solid;
+  border-width: 2.5px;
+  border-color: black;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #D9D9D9;
+}
+
+.checkbox-container:hover input~.checkmark {
+  background-color: #ccc;
+}
+
+.checkbox-container input:checked~.checkmark {
+  background-color: #00CC08;
+}
+
+.task-info span {
+  font-size: 13px;
+  word-wrap: break-word;
+  font-weight: bold;
 }

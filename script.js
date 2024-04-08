@@ -84,7 +84,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     taskElement.innerHTML = `
       <div class="task-info">
-        <input type="checkbox" ${task.completed ? "checked" : ""}>
+      <label class="checkbox-container">
+      <input type="checkbox" ${task.completed ? "checked" : ""}>
+      <span class="checkmark"></span>
+      </label>
         <span>${task.name}</span>
         <span class="task-date">${task.date}</span>
         <div class="task-actions">
@@ -123,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
       task.name = newName;
       let newDate = prompt("Enter new task date:", task.date);
       if (newDate !== null) {
-        // Validate the date input using a regular expression
+        // To validate the date input using a regular expression
         const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
         while (!dateRegex.test(newDate)) {
           alert("Invalid date format. Please use YYYY-MM-DD.");
